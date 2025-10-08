@@ -1,103 +1,141 @@
-import Image from "next/image";
+"use client"
 
-export default function Home() {
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { motion } from "framer-motion"
+
+export default function Home()
+{
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="min-h-screen bg-[#0D0D0D] text-[#E8E8E8] font-inter">
+      {/* Navigation */}
+      <nav className="fixed top-0 left-0 right-0 flex justify-between items-center px-10 py-4 bg-opacity-40 backdrop-blur-md bg-[#0D0D0D]/60 z-50 border-b border-[#1F1F1F]">
+        <h1 className="text-2xl font-bold text-[#4FD1C5]">Walson Argan RENE</h1>
+        <ul className="flex space-x-8 text-sm">
+          <li className="hover:text-[#4FD1C5] transition-colors cursor-pointer">Accueil</li>
+          <li className="hover:text-[#4FD1C5] transition-colors cursor-pointer">Compétences</li>
+          <li className="hover:text-[#4FD1C5] transition-colors cursor-pointer">Projets</li>
+          <li className="hover:text-[#4FD1C5] transition-colors cursor-pointer">Contact</li>
+        </ul>
+      </nav>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* Hero */}
+      <section className="flex flex-col justify-center items-center text-center h-screen px-6 relative overflow-hidden">
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 0.2 }} transition={{ duration: 1.5 }}
+          className="absolute -top-32 left-1/2 -translate-x-1/2 h-96 w-96 rounded-full bg-[#4FD1C5]/20 blur-[120px]" />
+
+        <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}
+          className="text-[44px] md:text-[64px] font-extrabold tracking-tight mb-6">
+          Walson Argan RENE
+        </motion.h1>
+
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15, duration: 0.8 }}
+          className="px-6 py-3 rounded-2xl border border-[#2A2A2A] bg-[#0D0D0D]/40">
+          <span className="text-xl md:text-2xl font-semibold text-gray-300">
+            Étudiant ingénieur à l’EPITA
+          </span>
+        </motion.div>
+
+        <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.8 }}
+          className="text-base md:text-lg text-gray-300 max-w-2xl mt-6">
+          Passionné par le développement et la création numérique. J’aime comprendre, concevoir et améliorer des systèmes.
+        </motion.p>
+
+        <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45, duration: 0.8 }}
+          className="text-gray-400 max-w-xl mt-4">
+          Je cherche à renforcer mes compétences en développement au sein d’une entreprise, afin de gagner en expérience concrète et de participer à des projets réels.
+        </motion.p>
+
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6, duration: 0.8 }}
+          className="flex space-x-4 mt-8">
+          <Button className="bg-[#4FD1C5] text-[#0D0D0D] font-medium hover:bg-[#3CBFAF]">Voir les projets</Button>
+          <Button className="bg-[#141414] text-[#E8E8E8] border border-[#2A2A2A] hover:bg-[#1A1A1A]">Me contacter</Button>
+        </motion.div>
+      </section>
+
+      {/* Compétences — timeline à gauche, sections longues et intégrées */}
+      <section id="skills" className="px-6 md:px-10 py-20">
+        <h3 className="text-3xl font-semibold mb-10 text-[#4FD1C5] text-center">Compétences</h3>
+
+
+        <div className="relative max-w-5xl mx-auto">
+          {/* barre verticale totalement à gauche */}
+          <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-[#4FD1C5]/60 via-[#1F1F1F] to-transparent" />
+
+
+          {/* Bloc 1 */}
+          <div className="relative pl-8 md:pl-12 mb-16">
+            {/* point */}
+            <span className="absolute left-0 -translate-x-1/2 mt-2 h-3 w-3 rounded-full bg-[#4FD1C5] shadow-[0_0_12px_rgba(79,209,197,0.6)]" />
+            <h4 className="text-xl font-bold">Ingénierie logicielle et algorithmique</h4>
+            <p className="text-gray-300 mt-3 leading-relaxed">
+              J’aborde le développement comme un travail d’ingénierie : comprendre le besoin, concevoir une solution robuste
+              et efficace, l’implémenter proprement puis l’optimiser. Sur <b>OCR Word Search (C)</b>, j’ai géré la mémoire
+              et mis en place un pipeline d’analyse performant. Avec <b>StickHunt (Unity/C#)</b>, j’ai travaillé la logique temps réel
+              et une architecture simple et claire. Sur <b>Atlas (Python)</b>, j’ai orchestré STT/TTS et LLM pour une réponse
+              vocale utile et rapide.
+            </p>
+          </div>
+
+
+          {/* Bloc 2 */}
+          <div className="relative pl-8 md:pl-12 mb-16">
+            <span className="absolute left-0 -translate-x-1/2 mt-2 h-3 w-3 rounded-full bg-[#4FD1C5] shadow-[0_0_12px_rgba(79,209,197,0.6)]" />
+            <h4 className="text-xl font-bold">Collaboration et travail en équipe</h4>
+            <p className="text-gray-300 mt-3 leading-relaxed">
+              Communication claire, Git propre (branches, PR, revues) et priorisation. Dans <b>OCR</b>, on a réparti les modules,
+              défini des conventions et ajouté une CI simple. Sur <b>StickHunt</b>, j’ai coordonné le binôme gameplay/tech avec des tâches
+              nettes et des revues courtes. Pour <b>JoinSparks.fr</b>, j’ai synchronisé le travail sur une base web partagée pour livrer
+              vite et propre.
+            </p>
+          </div>
+
+
+          {/* Bloc 3 */}
+          <div className="relative pl-8 md:pl-12">
+            <span className="absolute left-0 -translate-x-1/2 mt-2 h-3 w-3 rounded-full bg-[#4FD1C5] shadow-[0_0_12px_rgba(79,209,197,0.6)]" />
+            <h4 className="text-xl font-bold">Créativité et innovation technologique</h4>
+            <p className="text-gray-300 mt-3 leading-relaxed">
+              Je prototye rapidement pour tester des idées et créer des expériences utiles. <b>Atlas</b> explore une interface vocale
+              naturelle. Avec <b>Pö</b> (React), j’ai pensé une productivité sans friction (état global, composants réutilisables).
+              <b> StickHunt</b> m’a permis de travailler une boucle de jeu simple avec un feedback immédiat.
+            </p>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      </section>
+
+      {/* Projets */}
+      <section id="projects" className="px-10 py-20 text-center">
+        <h3 className="text-3xl font-semibold mb-10 text-[#4FD1C5]">Projets</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {["JoinSparks", "StickHunt", "Atlas"].map((project, i) => (
+            <Card key={i} className="bg-[#111111] border-[#1F1F1F] hover:border-[#4FD1C5]/40 transition-all rounded-2xl hover:shadow-[#4FD1C5]/10">
+              <CardContent className="p-6">
+                <h4 className="text-xl font-semibold mb-2 text-[#E8E8E8]">{project}</h4>
+                <p className="text-gray-400 text-sm">Projet de développement intégrant créativité et performance technique.</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+        <div className="mt-10">
+          <Button className="bg-[#4FD1C5] text-black hover:bg-[#3CBFAF]">Voir tous les projets</Button>
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section id="contact" className="px-10 py-20 text-center">
+        <h3 className="text-3xl font-semibold mb-6 text-[#4FD1C5]">Contact</h3>
+        <p className="text-gray-400 mb-8">Une idée, une collaboration ou un retour ? Écrivez-moi.</p>
+        <div className="flex justify-center space-x-6">
+          <Button variant="outline" className="border-[#4FD1C5] text-[#E8E8E8] hover:bg-[#4FD1C5]/10">LinkedIn</Button>
+          <Button variant="outline" className="border-[#4FD1C5] text-[#E8E8E8] hover:bg-[#4FD1C5]/10">GitHub</Button>
+          <Button variant="outline" className="border-[#4FD1C5] text-[#E8E8E8] hover:bg-[#4FD1C5]/10">Email</Button>
+        </div>
+      </section>
+
+      <footer className="text-center py-6 text-gray-600 text-sm border-t border-[#1F1F1F]">
+        © 2025 Walson Argan RENE — Portfolio personnel
       </footer>
     </div>
-  );
+  )
 }
