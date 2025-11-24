@@ -65,7 +65,7 @@ src/
 
 ---
 
-## � Licence
+## Licence
 
 Ce code est la propriété intellectuelle de **Walson Argan RENE**.
 Bien que le code soit public pour démonstration technique, le design, les textes et les assets personnels ne sont pas libres de droits pour une réutilisation commerciale ou personnelle sans accord explicite.
