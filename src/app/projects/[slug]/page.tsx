@@ -1,13 +1,15 @@
 import { projects } from "@/data/projects"
+import { Navbar } from "@/components/navbar"
+import { ProjectHeader } from "@/components/project-header"
+import { ProjectCarousel } from "@/components/project-carousel"
+import { ProjectDetails } from "@/components/project-details"
 import { notFound } from "next/navigation"
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import Image from "next/image"
 
 interface ProjectPageProps {
-    params: Promise<{
+    params: {
         slug: string
-    }>
+    }
 }
 
 export function generateStaticParams() {
@@ -16,83 +18,62 @@ export function generateStaticParams() {
     }))
 }
 
-export default async function ProjectPage({ params }: ProjectPageProps) {
-    const { slug } = await params
-    const project = projects.find((p) => p.slug === slug)
+export default function ProjectPage({ params }: ProjectPageProps) {
+    const projectIndex = projects.findIndex((p) => p.slug === params.slug)
+    const project = projects[projectIndex]
 
     if (!project) {
         notFound()
     }
 
+    const prevProject = projects[projectIndex - 1]
+    const nextProject = projects[projectIndex + 1]
+
     return (
-        <div className="min-h-screen bg-[#0D0D0D] text-[#E8E8E8] font-inter p-6 md:p-10">
-            <nav className="mb-10 max-w-4xl mx-auto">
-                <Link href="/projects">
-                    <Button variant="ghost" className="text-[#4FD1C5] hover:text-[#3CBFAF] hover:bg-[#1F1F1F]">
-                        ← Retour aux projets
-                    </Button>
-                </Link>
-            </nav>
+        <div className="min-h-screen bg-[#0D0D0D] text-[#E8E8E8] font-inter selection:bg-[#4FD1C5]/30">
+            <Navbar />
 
-            <main className="max-w-4xl mx-auto">
-                <header className="mb-10 border-b border-[#1F1F1F] pb-10">
-                    <h1 className="text-4xl md:text-5xl font-bold mb-4 text-[#E8E8E8]">{project.title}</h1>
-                    <div className="flex flex-wrap items-center gap-4 text-gray-400 mb-6">
-                        <span className="text-[#4FD1C5] font-medium">{project.role}</span>
-                        <span>•</span>
-                        <div className="flex flex-wrap gap-2">
-                            {project.stack.map((tech) => (
-                                <span
-                                    key={tech}
-                                    className="text-xs px-2 py-1 rounded-md bg-[#1F1F1F] text-gray-300 border border-[#2A2A2A]"
-                                >
-                                    {tech}
-                                </span>
-                            ))}
-                        </div>
+            <main>
+                {/* Immersive Header */}
+                <ProjectHeader project={project} />
+
+                <div className="max-w-7xl mx-auto px-6 md:px-10 py-20 space-y-20">
+                    {/* Media Carousel */}
+                    <section>
+                        <ProjectCarousel images={project.images} video={project.video} />
+                    </section>
+
+                    {/* Details & Info */}
+                    <ProjectDetails project={project} />
+
+                    {/* Next/Prev Navigation */}
+                    <div className="flex justify-between items-center pt-20 border-t border-white/10">
+                        {prevProject ? (
+                            <Link
+                                href={`/projects/${prevProject.slug}`}
+                                className="group flex flex-col gap-2 text-left"
+                            >
+                                <span className="text-sm text-gray-500 uppercase tracking-wider group-hover:text-[#4FD1C5] transition-colors">Projet Précédent</span>
+                                <span className="text-xl font-bold text-white group-hover:translate-x-2 transition-transform">{prevProject.title}</span>
+                            </Link>
+                        ) : <div />}
+
+                        {nextProject ? (
+                            <Link
+                                href={`/projects/${nextProject.slug}`}
+                                className="group flex flex-col gap-2 text-right"
+                            >
+                                <span className="text-sm text-gray-500 uppercase tracking-wider group-hover:text-[#4FD1C5] transition-colors">Projet Suivant</span>
+                                <span className="text-xl font-bold text-white group-hover:-translate-x-2 transition-transform">{nextProject.title}</span>
+                            </Link>
+                        ) : <div />}
                     </div>
-                    <p className="text-xl text-gray-300 leading-relaxed">
-                        {project.shortDescription}
-                    </p>
-                </header>
-
-                <section className="mb-12">
-                    <h2 className="text-2xl font-semibold mb-4 text-[#4FD1C5]">À propos du projet</h2>
-                    <p className="text-gray-300 leading-relaxed whitespace-pre-line">
-                        {project.longDescription}
-                    </p>
-                </section>
-
-                <div className="flex gap-4 mb-12">
-                    {project.github && (
-                        <a href={project.github} target="_blank" rel="noopener noreferrer">
-                            <Button className="bg-[#1F1F1F] text-[#E8E8E8] border border-[#2A2A2A] hover:bg-[#2A2A2A] hover:border-[#4FD1C5]">
-                                Voir sur GitHub
-                            </Button>
-                        </a>
-                    )}
-                    {project.link && (
-                        <a href={project.link} target="_blank" rel="noopener noreferrer">
-                            <Button className="bg-[#4FD1C5] text-[#0D0D0D] hover:bg-[#3CBFAF]">
-                                Voir le site
-                            </Button>
-                        </a>
-                    )}
                 </div>
-
-                <section className="space-y-8">
-                    {project.images.map((img, index) => (
-                        <div key={index} className="relative w-full h-[400px] md:h-[500px] rounded-xl overflow-hidden border border-[#1F1F1F]">
-                            <Image
-                                src={img}
-                                alt={`${project.title} screenshot ${index + 1}`}
-                                fill
-                                className="object-cover"
-                            />
-                        </div>
-                    ))}
-                </section>
             </main>
+
+            <footer className="text-center py-8 text-gray-600 text-sm border-t border-[#1F1F1F] mt-20">
+                © 2025 Walson Argan RENE — Portfolio personnel
+            </footer>
         </div>
     )
 }

@@ -15,13 +15,37 @@ const geistMono = Geist_Mono({
 });
 
 
-export const metadata = { title: "Portfolio" }
+export const metadata = {
+  title: "Walson Argan RENE | Développeur Fullstack & Ingénieur Logiciel",
+  description: "Portfolio de Walson Argan RENE, étudiant ingénieur à l'EPITA. Expert en développement Web (Next.js), Mobile (React Native) et Systèmes (Rust/Python).",
+  keywords: ["Développeur Fullstack", "Next.js", "React", "Rust", "Python", "EPITA", "Ingénieur Logiciel", "Portfolio"],
+  authors: [{ name: "Walson Argan RENE" }],
+  openGraph: {
+    title: "Walson Argan RENE | Développeur Fullstack",
+    description: "Découvrez mes projets innovants et mon parcours technique.",
+    url: "https://walson.dev", // Placeholder URL
+    siteName: "Walson Argan RENE Portfolio",
+    images: [
+      {
+        url: "/images/og-image.jpg", // Placeholder image
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: "fr_FR",
+    type: "website",
+  },
+}
 
-export default function RootLayout({ children }: { children: React.ReactNode })
-{
+import { AtlasChat } from "@/components/atlas-chat"
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        {children}
+        <AtlasChat />
+      </body>
     </html>
   )
 }

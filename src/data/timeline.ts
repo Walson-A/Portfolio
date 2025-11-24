@@ -33,7 +33,7 @@ export const timelineEvents: TimelineEvent[] = [
         label: "OCR Word Search",
         subtitle: "Projet C de reconnaissance de grilles",
         description: "Algorithme de vision par ordinateur pour résoudre des mots mêlés.",
-        slug: "ocr-word-search",
+        slug: "ocr-wss",
         tags: ["C", "OCR", "Image Processing", "Algorithms"],
         images: [
             "https://placehold.co/600x400/1a1a1a/4FD1C5/png?text=OCR+1",
@@ -60,23 +60,10 @@ export const timelineEvents: TimelineEvent[] = [
         subtitle: "Assistant vocal IA",
         description: "Assistant intelligent modulaire intégrant STT, LLM et TTS.",
         slug: "atlas",
-        tags: ["Python", "OpenAI API", "TTS/STT", "Voice AI"],
+        tags: ["Python", "LLM", "TTS/STT", "Voice AI"],
         images: [
             "https://placehold.co/600x400/1a1a1a/4FD1C5/png?text=Atlas+1",
             "https://placehold.co/600x400/1a1a1a/4FD1C5/png?text=Atlas+2"
-        ]
-    },
-    {
-        year: 2025,
-        type: "project",
-        label: "Sparks",
-        subtitle: "Site d’agence créative",
-        description: "Plateforme de réservation de studios avec design moderne.",
-        slug: "sparks",
-        tags: ["Next.js", "Tailwind", "Framer Motion", "UX/UI"],
-        images: [
-            "https://placehold.co/600x400/1a1a1a/4FD1C5/png?text=Sparks+1",
-            "https://placehold.co/600x400/1a1a1a/4FD1C5/png?text=Sparks+2"
         ]
     },
     {

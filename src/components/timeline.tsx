@@ -1,6 +1,7 @@
 "use client"
 
 import { timelineEvents, TimelineEvent, EventType } from "@/data/timeline"
+import { projects } from "@/data/projects"
 import { motion, useScroll, AnimatePresence } from "framer-motion"
 import { useRef, useState, useEffect } from "react"
 import { Briefcase, GraduationCap, Box, MapPin } from "lucide-react"
@@ -226,32 +227,40 @@ function EventItem({ event, index }: { event: TimelineEvent; index: number }) {
                                         )}
                                     </div>
 
-                                    {/* Image Carousel (if images exist) */}
-                                    {event.images && event.images.length > 0 && (
-                                        <div className="relative h-40 overflow-hidden bg-black/50 border-b border-[#1F1F1F]">
-                                            {/* Gradient Overlays for smooth fade */}
-                                            <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-[#111111] to-transparent z-10" />
-                                            <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-[#111111] to-transparent z-10" />
+                                    {/* Media Display (Video or Image Slideshow) */}
+                                    {(() => {
+                                        // Find matching project by slug
+                                        const matchedProject = event.slug ? projects.find(p => p.slug === event.slug) : null
+                                        const hasVideo = matchedProject?.video
+                                        const mediaImages = matchedProject?.images || event.images || []
 
-                                            <motion.div
-                                                className="flex h-full"
-                                                animate={{ x: ["0%", "-50%"] }}
-                                                transition={{
-                                                    repeat: Infinity,
-                                                    ease: "linear",
-                                                    duration: 10
-                                                }}
-                                                style={{ width: `${event.images.length * 200}%` }}
-                                            >
-                                                {/* Double the images for seamless loop */}
-                                                {[...event.images, ...event.images].map((src, idx) => (
-                                                    <div key={idx} className="h-full w-full relative flex-shrink-0 border-r border-[#1F1F1F]/50">
-                                                        <img src={src} alt="" className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" />
-                                                    </div>
-                                                ))}
-                                            </motion.div>
-                                        </div>
-                                    )}
+                                        if (hasVideo) {
+                                            // Extract YouTube ID
+                                            const match = hasVideo.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^#&?]*).*/)
+                                            const youtubeId = match ? match[1] : null
+
+                                            return youtubeId ? (
+                                                <div className="relative h-40 overflow-hidden bg-black border-b border-[#1F1F1F]">
+                                                    <iframe
+                                                        width="100%"
+                                                        height="100%"
+                                                        src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&loop=1&playlist=${youtubeId}`}
+                                                        title="Project video"
+                                                        frameBorder="0"
+                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                        className="w-full h-full"
+                                                    />
+                                                </div>
+                                            ) : null
+                                        }
+
+                                        // Show image slideshow if no video
+                                        if (mediaImages.length > 0) {
+                                            return <ImageSlideshow images={mediaImages} />
+                                        }
+
+                                        return null
+                                    })()}
 
                                     {/* Body */}
                                     <div className="p-5 space-y-4">
@@ -292,6 +301,38 @@ function EventItem({ event, index }: { event: TimelineEvent; index: number }) {
                     </AnimatePresence>
                 </motion.div>
             </div>
+        </div>
+    )
+}
+
+// Image Slideshow Component with Fade Transitions
+function ImageSlideshow({ images }: { images: string[] }) {
+    const [currentIndex, setCurrentIndex] = useState(0)
+
+    useEffect(() => {
+        if (images.length <= 1) return
+
+        const interval = setInterval(() => {
+            setCurrentIndex((prev) => (prev + 1) % images.length)
+        }, 2500) // Change image every 2.5 seconds
+
+        return () => clearInterval(interval)
+    }, [images.length])
+
+    return (
+        <div className="relative h-40 overflow-hidden bg-black/50 border-b border-[#1F1F1F]">
+            <AnimatePresence mode="wait">
+                <motion.img
+                    key={currentIndex}
+                    src={images[currentIndex]}
+                    alt=""
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="w-full h-full object-cover"
+                />
+            </AnimatePresence>
         </div>
     )
 }

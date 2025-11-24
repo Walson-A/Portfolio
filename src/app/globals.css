@@ -124,4 +124,6 @@
 
 html {
   scroll-behavior: smooth;
+  font-size: 90%;
+  /* Simulates 90% zoom level */
 }

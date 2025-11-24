@@ -1,42 +1,26 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
 import { motion } from "framer-motion"
-import { useEffect, useRef, useState } from "react"
+import { useState } from "react"
 import { projects } from "@/data/projects"
 import { ProjectCard } from "@/components/project-card"
 import Link from "next/link"
+import { Navbar } from "@/components/navbar"
 import { Timeline } from "@/components/timeline"
-
-function clamp(n: number, min = 0, max = 1) {
-  return Math.max(min, Math.min(max, n))
-}
+import { ContactModal } from "@/components/contact-modal"
+import { TechMarquee } from "@/components/tech-marquee"
 
 export default function Home() {
+  const [isContactOpen, setIsContactOpen] = useState(false)
+
   return (
     <div className="min-h-screen bg-[#0D0D0D] text-[#E8E8E8] font-inter">
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 flex justify-between items-center px-10 py-4 bg-opacity-40 backdrop-blur-md bg-[#0D0D0D]/60 z-50 border-b border-[#1F1F1F]">
-        <h1 className="text-2xl font-bold text-[#4FD1C5]">Walson Argan RENE</h1>
-        <ul className="flex space-x-8 text-sm">
-          <li>
-            <a href="#" className="hover:text-[#4FD1C5] transition-colors cursor-pointer">Accueil</a>
-          </li>
-          <li>
-            <a href="#timeline" className="hover:text-[#4FD1C5] transition-colors cursor-pointer">Compétences</a>
-          </li>
-          <li>
-            <a href="#projects" className="hover:text-[#4FD1C5] transition-colors cursor-pointer">Projets</a>
-          </li>
-          <li>
-            <a href="#contact" className="hover:text-[#4FD1C5] transition-colors cursor-pointer">Contact</a>
-          </li>
-        </ul>
-      </nav>
+      {/* Floating Navigation */}
+      <Navbar />
 
       {/* Hero */}
-      <section className="flex flex-col justify-center items-center text-center h-screen px-6 relative overflow-hidden">
+      <section id="home" className="flex flex-col justify-center items-center text-center h-screen px-6 relative overflow-hidden">
         {/* Animated Background Orbs */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -141,39 +125,52 @@ export default function Home() {
                 Voir les projets
               </Button>
             </a>
-            <a href="#contact">
-              <Button
-                className="bg-[#141414] text-[#E8E8E8] border-2 border-[#4FD1C5]/30 hover:bg-[#1A1A1A] hover:border-[#4FD1C5]/50 px-8 py-6 text-lg font-bold transition-all hover:scale-105"
-              >
-                Me contacter
-              </Button>
-            </a>
+            <Button
+              onClick={() => setIsContactOpen(true)}
+              className="bg-[#141414] text-[#E8E8E8] border-2 border-[#4FD1C5]/30 hover:bg-[#1A1A1A] hover:border-[#4FD1C5]/50 px-8 py-6 text-lg font-bold transition-all hover:scale-105"
+            >
+              Me contacter
+            </Button>
           </motion.div>
         </div>
 
         {/* Scroll Indicator */}
-        <motion.div
+        <motion.button
+          onClick={() => {
+            const element = document.getElementById("timeline")
+            if (element) {
+              const offset = 100
+              const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
+              const offsetPosition = elementPosition - offset
+              window.scrollTo({ top: offsetPosition, behavior: "smooth" })
+            }
+          }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1, y: [0, 10, 0] }}
           transition={{
             opacity: { delay: 1, duration: 0.8 },
             y: { duration: 2, repeat: Infinity, ease: "easeInOut" }
           }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+          className="absolute bottom-40 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer group z-20"
         >
-          <span className="text-xs text-gray-500 uppercase tracking-widest">Scroll</span>
+          <span className="text-xs text-gray-500 uppercase tracking-widest group-hover:text-[#4FD1C5] transition-colors">Scroll</span>
           <svg
-            className="w-6 h-6 text-[#4FD1C5]"
+            className="w-6 h-6 text-[#4FD1C5] group-hover:scale-110 transition-transform"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
           >
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
           </svg>
-        </motion.div>
+        </motion.button>
+
+        {/* Skills Marquee - Positioned at bottom of Hero */}
+        <div className="absolute bottom-0 left-0 right-0 z-20">
+          <TechMarquee />
+        </div>
       </section>
 
-      <section id="timeline" className="px-6 md:px-10 py-20">
+      <section id="timeline" className="px-6 md:px-10 py-20 pt-32">
         <h2
           className="text-4xl md:text-5xl font-black tracking-widest mb-16 text-center text-white"
           style={{
@@ -204,7 +201,9 @@ export default function Home() {
         </div>
         <div className="mt-10">
           <Link href="/projects">
-            <Button className="bg-[#4FD1C5] text-black hover:bg-[#3CBFAF]">Voir tous les projets</Button>
+            <Button className="bg-[#4FD1C5] text-[#0D0D0D] font-bold hover:bg-[#3CBFAF] px-8 py-6 text-lg transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(79,209,197,0.4)] rounded-xl">
+              Voir tous les projets
+            </Button>
           </Link>
         </div>
       </section>
@@ -279,6 +278,8 @@ export default function Home() {
       <footer className="text-center py-6 text-gray-600 text-sm border-t border-[#1F1F1F]">
         © 2025 Walson Argan RENE — Portfolio personnel
       </footer>
+
+      <ContactModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
     </div>
   )
 }
