@@ -11,7 +11,7 @@
 
 **Le code source de mon portfolio personnel. Une vitrine interactive de mes compétences en ingénierie logicielle, design UI/UX et intelligence artificielle.**
 
-[Voir le site en ligne](https://github.com/Walson-A/Portfolio)
+[Voir le site en ligne](https://portfoliodeploy-iota.vercel.app/)
 
 </div>
 
