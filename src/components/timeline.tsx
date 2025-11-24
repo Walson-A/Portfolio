@@ -117,7 +117,6 @@ function TimelineYearGroup({ year, events, activeEventId, setActiveEventId }: {
                         key={i}
                         event={event}
                         index={i}
-                        year={year}
                         isActiveEvent={activeEventId === `${year}-${i}`}
                         onActivate={() => setActiveEventId(`${year}-${i}`)}
                         onDeactivate={() => setActiveEventId(null)}
@@ -135,10 +134,9 @@ function TooltipPortal({ children }: { children: React.ReactNode }) {
     return createPortal(children, document.body)
 }
 
-function EventItem({ event, index, year, isActiveEvent, onActivate, onDeactivate }: {
+function EventItem({ event, index, isActiveEvent, onActivate, onDeactivate }: {
     event: TimelineEvent;
     index: number;
-    year: number;
     isActiveEvent: boolean;
     onActivate: () => void;
     onDeactivate: () => void;
@@ -274,10 +272,8 @@ function EventItem({ event, index, year, isActiveEvent, onActivate, onDeactivate
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: 10, scale: 0.95 }}
                             transition={{ duration: 0.2 }}
-                            {...(typeof window !== 'undefined' && window.innerWidth >= 768 ? {
-                                onMouseEnter: handleMouseEnter,
-                                onMouseLeave: handleMouseLeave,
-                            } : {})}
+                            onMouseEnter={handleMouseEnter}
+                            onMouseLeave={handleMouseLeave}
                             className={`fixed z-[9999] w-[90vw] md:w-[26rem] p-0 rounded-2xl border-2 border-[#4FD1C5]/30 shadow-[0_0_50px_rgba(0,0,0,1)] text-left overflow-hidden
                                 left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 md:translate-x-0 md:translate-y-0 md:top-auto md:left-auto
                             `}

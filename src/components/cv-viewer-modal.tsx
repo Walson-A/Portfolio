@@ -141,7 +141,7 @@ export function CVViewerModal({ isOpen, onClose }: CVViewerModalProps) {
                                                 Impossible de charger le PDF
                                             </p>
                                             <p className="text-gray-500 text-sm">
-                                                Votre navigateur ne prend peut-être pas en charge l'affichage de PDF.
+                                                Votre navigateur ne prend peut-être pas en charge l&apos;affichage de PDF.
                                             </p>
                                         </div>
                                         <button
