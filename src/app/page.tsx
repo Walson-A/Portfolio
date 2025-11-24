@@ -12,6 +12,7 @@ import { ContactModal } from "@/components/contact-modal"
 import { TechMarquee } from "@/components/tech-marquee"
 
 export default function Home() {
+  // Force rebuild - Layout Fix
   const [isContactOpen, setIsContactOpen] = useState(false)
 
   return (
