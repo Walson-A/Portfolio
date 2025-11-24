@@ -20,13 +20,13 @@ export default function Home() {
       <Navbar />
 
       {/* Hero */}
-      <section id="home" className="flex flex-col justify-center items-center text-center h-screen px-6 relative overflow-hidden">
+      <section id="home" className="relative flex flex-col min-h-screen px-6 overflow-hidden">
         {/* Animated Background Orbs */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.15 }}
           transition={{ duration: 2 }}
-          className="absolute -top-32 left-1/2 -translate-x-1/2 h-96 w-96 rounded-full bg-[#4FD1C5]/30 blur-[120px]"
+          className="absolute -top-32 left-1/2 -translate-x-1/2 h-96 w-96 rounded-full bg-[#4FD1C5]/30 blur-[120px] pointer-events-none"
         />
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
@@ -41,7 +41,7 @@ export default function Home() {
             repeat: Infinity,
             ease: "easeInOut"
           }}
-          className="absolute top-1/4 right-1/4 h-64 w-64 rounded-full bg-[#4FD1C5]/20 blur-[100px]"
+          className="absolute top-1/4 right-1/4 h-64 w-64 rounded-full bg-[#4FD1C5]/20 blur-[100px] pointer-events-none"
         />
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
@@ -57,11 +57,11 @@ export default function Home() {
             ease: "easeInOut",
             delay: 1
           }}
-          className="absolute bottom-1/4 left-1/4 h-72 w-72 rounded-full bg-[#4FD1C5]/15 blur-[110px]"
+          className="absolute bottom-1/4 left-1/4 h-72 w-72 rounded-full bg-[#4FD1C5]/15 blur-[110px] pointer-events-none"
         />
 
-        {/* Content */}
-        <div className="relative z-10 max-w-5xl">
+        {/* Main Content Container */}
+        <div className="flex-1 flex flex-col justify-center items-center text-center z-10 w-full max-w-5xl mx-auto pt-20 pb-10">
           {/* Name with Cinematic Styling */}
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -134,39 +134,42 @@ export default function Home() {
           </motion.div>
         </div>
 
-        {/* Scroll Indicator */}
-        <motion.button
-          onClick={() => {
-            const element = document.getElementById("timeline")
-            if (element) {
-              const offset = 100
-              const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
-              const offsetPosition = elementPosition - offset
-              window.scrollTo({ top: offsetPosition, behavior: "smooth" })
-            }
-          }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1, y: [0, 10, 0] }}
-          transition={{
-            opacity: { delay: 1, duration: 0.8 },
-            y: { duration: 2, repeat: Infinity, ease: "easeInOut" }
-          }}
-          className="hidden md:flex absolute bottom-40 left-1/2 -translate-x-1/2 flex-col items-center gap-2 cursor-pointer group z-20"
-        >
-          <span className="text-xs text-gray-500 uppercase tracking-widest group-hover:text-[#4FD1C5] transition-colors">Scroll</span>
-          <svg
-            className="w-6 h-6 text-[#4FD1C5] group-hover:scale-110 transition-transform"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+        {/* Bottom Section: Scroll Indicator + Marquee */}
+        <div className="relative z-20 w-full flex flex-col items-center gap-6 pb-0">
+          {/* Scroll Indicator */}
+          <motion.button
+            onClick={() => {
+              const element = document.getElementById("timeline")
+              if (element) {
+                const offset = 100
+                const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
+                const offsetPosition = elementPosition - offset
+                window.scrollTo({ top: offsetPosition, behavior: "smooth" })
+              }
+            }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, y: [0, 10, 0] }}
+            transition={{
+              opacity: { delay: 1, duration: 0.8 },
+              y: { duration: 2, repeat: Infinity, ease: "easeInOut" }
+            }}
+            className="hidden md:flex flex-col items-center gap-2 cursor-pointer group"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-          </svg>
-        </motion.button>
+            <span className="text-xs text-gray-500 uppercase tracking-widest group-hover:text-[#4FD1C5] transition-colors">Scroll</span>
+            <svg
+              className="w-6 h-6 text-[#4FD1C5] group-hover:scale-110 transition-transform"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </motion.button>
 
-        {/* Skills Marquee - Positioned at bottom of Hero */}
-        <div className="absolute bottom-0 left-0 right-0 z-20">
-          <TechMarquee />
+          {/* Skills Marquee */}
+          <div className="w-full">
+            <TechMarquee />
+          </div>
         </div>
       </section>
 

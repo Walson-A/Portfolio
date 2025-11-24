@@ -1,13 +1,8 @@
-
 import { NextResponse } from 'next/server';
-import path from 'path';
-import fs from 'fs';
-
 // We need to use the same embedding model as build-knowledge.ts
 // Since we are in Next.js server runtime, we can use @xenova/transformers
 import { pipeline } from '@xenova/transformers';
-
-const VECTOR_STORE_PATH = path.join(process.cwd(), 'src', 'data', 'vector-store.json');
+import vectorStoreData from '@/data/vector-store.json';
 
 // Define types for vector store items
 interface VectorItem {
@@ -43,14 +38,8 @@ export async function POST(req: Request) {
         const userQuery = lastMessage.content;
 
         // 1. Load Vector Store
-        if (!fs.existsSync(VECTOR_STORE_PATH)) {
-            return NextResponse.json({
-                role: 'assistant',
-                content: "Désolé, ma base de connaissances est en cours de maintenance (fichier vectoriel introuvable).",
-                timestamp: new Date()
-            });
-        }
-        const vectorStore: VectorItem[] = JSON.parse(fs.readFileSync(VECTOR_STORE_PATH, 'utf-8'));
+        // Cast the imported JSON to our type
+        const vectorStore: VectorItem[] = vectorStoreData as unknown as VectorItem[];
 
         // 2. Embed User Query
         const embedder = await getExtractor();
