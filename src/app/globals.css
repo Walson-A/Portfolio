@@ -122,8 +122,12 @@
   }
 }
 
-html {
+html,
+body {
   scroll-behavior: smooth;
   font-size: 90%;
   /* Simulates 90% zoom level */
+  background-color: #0D0D0D;
+  overscroll-behavior-y: none;
+  /* Prevents "bounce" effect revealing white background on some browsers */
 }

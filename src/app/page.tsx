@@ -151,7 +151,7 @@ export default function Home() {
             opacity: { delay: 1, duration: 0.8 },
             y: { duration: 2, repeat: Infinity, ease: "easeInOut" }
           }}
-          className="absolute bottom-40 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer group z-20"
+          className="hidden md:flex absolute bottom-40 left-1/2 -translate-x-1/2 flex-col items-center gap-2 cursor-pointer group z-20"
         >
           <span className="text-xs text-gray-500 uppercase tracking-widest group-hover:text-[#4FD1C5] transition-colors">Scroll</span>
           <svg

@@ -41,7 +41,7 @@ export default function ProjectsPage() {
                         transition={{ delay: 0.1 }}
                         className="text-gray-400 max-w-2xl mx-auto text-lg"
                     >
-                        Une collection de mes travaux récents, allant du développement web aux applications mobiles et systèmes embarqués.
+                        Une collection de mes travaux récents.
                     </motion.p>
                 </div>
 

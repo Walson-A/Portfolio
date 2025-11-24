@@ -103,9 +103,9 @@ export function Navbar() {
                 initial={{ y: -100, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
-                className="fixed top-8 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none"
+                className="fixed top-4 md:top-8 left-0 right-0 z-50 flex justify-center px-2 md:px-4 pointer-events-none"
             >
-                <div className="pointer-events-auto bg-[#0D0D0D]/80 backdrop-blur-2xl border border-[#4FD1C5]/20 rounded-full px-3 py-3 shadow-[0_0_30px_rgba(79,209,197,0.15)] flex items-center gap-2">
+                <div className="pointer-events-auto bg-[#0D0D0D]/50 backdrop-blur-2xl border border-[#4FD1C5]/20 rounded-full px-2 py-2 md:px-3 md:py-3 shadow-[0_0_30px_rgba(79,209,197,0.15)] flex items-center gap-1 md:gap-2">
                     {visibleItems.map((item, index) => {
                         // Priority: Contact Modal > About Modal > Scroll Section
                         let isActive = activeSection === item.href
@@ -135,7 +135,7 @@ export function Navbar() {
                                     onMouseEnter={() => setHoveredIndex(index)}
                                     onMouseLeave={() => setHoveredIndex(null)}
                                     className={cn(
-                                        "relative flex items-center gap-3 px-6 py-3 rounded-full transition-colors duration-300",
+                                        "relative flex items-center gap-2 md:gap-3 px-3 py-2 md:px-6 md:py-3 rounded-full transition-colors duration-300",
                                         isActive ? "text-[#0D0D0D]" : "text-gray-400 hover:text-white"
                                     )}
                                 >
@@ -148,7 +148,7 @@ export function Navbar() {
                                     )}
 
                                     <div className="relative z-10 flex items-center justify-center">
-                                        <Icon size={24} strokeWidth={2.5} />
+                                        <Icon size={20} className="md:w-6 md:h-6" strokeWidth={2.5} />
                                     </div>
 
                                     <motion.span
@@ -158,7 +158,7 @@ export function Navbar() {
                                             opacity: isExpanded ? 1 : 0
                                         }}
                                         transition={{ duration: 0.3, ease: "easeInOut" }}
-                                        className="relative z-10 overflow-hidden whitespace-nowrap text-base font-bold"
+                                        className="relative z-10 overflow-hidden whitespace-nowrap text-sm md:text-base font-bold hidden md:block"
                                     >
                                         {item.name}
                                     </motion.span>

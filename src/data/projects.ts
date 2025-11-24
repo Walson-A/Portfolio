@@ -22,7 +22,7 @@ export const projects: Project[] = [
         slug: "atlas",
         title: "Atlas",
         shortDescription: "Assistant vocal IA local ultra-rapide mêlant ASR, LLM, TTS et domotique.",
-        longDescription: "Atlas est un assistant vocal IA de nouvelle génération, conçu pour fonctionner entièrement en local afin de garantir confidentialité et réactivité. S'affranchissant des écosystèmes fermés, il orchestre un pipeline audio complet intégrant détection de mot-clé (hotword), reconnaissance vocale (ASR Whisper), et synthèse vocale (TTS) modulable.\n\nAu-delà de la simple commande vocale, Atlas est une véritable intelligence ambiante connectée à son environnement via Home Assistant. Il offre une expérience conversationnelle fluide et naturelle (barge-in, contexte), tout en étant bâti sur une architecture modulaire prête pour le futur (mémoire long terme, analyse émotionnelle, routines adaptatives). Ce n'est pas un simple clone, mais une plateforme évolutive pensée pour grandir avec son utilisateur.",
+        longDescription: "Atlas est un assistant vocal IA de nouvelle génération, conçu pour fonctionner entièrement en local afin de garantir confidentialité et réactivité. S'affranchissant des écosystèmes fermés, il orchestre un pipeline audio complet intégrant détection de mot-clé (hotword), reconnaissance vocale (ASR), appel LLM et synthèse vocale (TTS), le tout entièrement modulable.\n\nAu-delà de la simple commande vocale, Atlas est une véritable intelligence ambiante connectée à son environnement virtuel (contrôle de différentes fonctionnalités du PC) et réel (avec une gestion complète des appareils connectés via Home Assistant). Il offre une expérience conversationnelle fluide et naturelle (barge-in, contexte), tout en étant bâti sur une architecture modulaire prête pour le futur (mémoire long terme, analyse émotionnelle, routines adaptatives).",
         role: "Architecte Système & Développeur Fullstack",
         stack: ["Python", "LLM", "Function Tools", "ASR", "TTS"],
         images: ["/images/atlas-1.png"], // Placeholder
@@ -31,7 +31,7 @@ export const projects: Project[] = [
         duration: "Projet long terme",
         status: "En cours",
         featured: true,
-        technicalDetails: "Le défi majeur a été de concevoir un pipeline audio temps réel à faible latence capable de gérer simultanément le hotword, le VAD, la transcription et l'interruption (barge-in), le tout en local. L'architecture est strictement découplée : `asr.py` pour l'oreille, `llm.py` pour l'intelligence, et `tts.py` pour la voix, permettant une maintenance et une évolution indépendantes de chaque module.",
+        technicalDetails: "Le défi majeur a été de concevoir un pipeline audio temps réel à faible latence capable de gérer simultanément le hotword, le VAD, la transcription et l'interruption (barge-in), le tout en local. L'architecture est strictement découplée permettant une maintenance et une évolution indépendantes de chaque module.",
     },
     {
         slug: "stickhunt",
@@ -49,7 +49,7 @@ export const projects: Project[] = [
         status: "Terminé",
         featured: true,
         contributors: [
-            { name: "Walson René", github: "https://github.com/Walson-A" },
+            { name: "Walson Argan René", github: "https://github.com/Walson-A" },
             { name: "Mathéo Chahwan", github: "https://github.com/capritkt" },
             { name: "Nicolas Lefevre Pontalis", github: "https://github.com/NicoLP04" },
             { name: "Lucas Peres", github: "https://github.com/xNarius" },
@@ -60,7 +60,7 @@ export const projects: Project[] = [
         slug: "ocr-wss",
         title: "OCR Word Search Solver",
         shortDescription: "Pipeline OCR complet pour résoudre des mots cachés depuis une image.",
-        longDescription: "OCR WSS est un système de vision par ordinateur capable de résoudre automatiquement des grilles de mots cachés à partir d'une simple photo. Développé entièrement en C sans bibliothèques de haut niveau (hormis SDL2), le projet implémente un pipeline complet : prétraitement d'image, détection de grille, segmentation des caractères, reconnaissance optique (OCR) via un réseau de neurones maison, et algorithme de résolution.\n\nCe projet démontre une maîtrise des algorithmes bas niveau de traitement d'image (projections, binarisation, détection de lignes) et une compréhension profonde des structures de données nécessaires pour manipuler efficacement des matrices de caractères et des dictionnaires.",
+        longDescription: "OCR WSS est un logiciel d'OCR capable de résoudre automatiquement des grilles de mots cachés à partir d'une simple photo. Développé entièrement en C sans bibliothèques de haut niveau (hormis SDL2), le projet implémente un pipeline complet : prétraitement d'image, détection de grille, segmentation des caractères, reconnaissance optique (OCR) via un réseau de neurones maison, et algorithme de résolution.\n\nCe projet a nécessité une maîtrise des algorithmes bas niveau de traitement d'image (projections, binarisation, détection de lignes).",
         role: "Développeur C & Computer Vision",
         stack: ["C", "SDL2", "Neural Networks", "Image Processing"],
         images: ["/images/ocr-wss-1.png"], // Placeholder
@@ -70,32 +70,35 @@ export const projects: Project[] = [
         status: "Terminé",
         featured: true,
         contributors: [
-            { name: "Walson René", github: "https://github.com/Walson-A" },
+            { name: "Walson Argan René", github: "https://github.com/Walson-A" },
             { name: "Baptiste De Sousa", github: "" },
             { name: "Sacha Radic", github: "" },
         ],
-        technicalDetails: "La contrainte de n'utiliser que la SDL2 a nécessité l'implémentation manuelle d'algorithmes complexes de vision par ordinateur. La détection de grille robuste face aux rotations et au bruit, ainsi que la création d'un réseau de neurones optimisé (XNOR) pour la reconnaissance de caractères sur CPU, ont constitué les principaux défis techniques.",
+        technicalDetails: "La contrainte de n'utiliser que la SDL2 a nécessité l'implémentation manuelle d'algorithmes complexes de vision par ordinateur. La détection de grille robuste face aux rotations et au bruit, ainsi que la création d'un réseau de neurones optimisé pour la reconnaissance de caractères, ont constitué les principaux défis techniques.",
     },
     {
         slug: "portfolio",
         title: "Portfolio Personnel",
         shortDescription: "Vitrine interactive moderne présentant mon parcours et mes projets.",
-        longDescription: "Ce portfolio est une application web moderne conçue pour offrir une expérience utilisateur immersive et fluide. Il met en avant mes compétences techniques et créatives à travers une interface soignée, des animations subtiles et une navigation intuitive. \n\nAu-delà de la simple présentation, ce projet sert de terrain d'expérimentation pour les dernières technologies du web moderne (Next.js 14, Server Components, Framer Motion). Il intègre un système de gestion de contenu dynamique pour les projets, un mode sombre natif et une optimisation poussée pour le référencement et les performances.",
+        longDescription: "Ce portfolio est une application web moderne conçue pour offrir une expérience utilisateur immersive et fluide. Il met en avant mes compétences techniques et créatives à travers une interface soignée, des animations subtiles et une navigation intuitive. \n\nAu-delà de la simple présentation, ce projet sert de terrain d'expérimentation pour les dernières technologies du web moderne (Next.js 14, Server Components, Framer Motion). Il intègre un système de gestion de contenu dynamique pour les projets, une optimisation poussée pour le référencement et les performances et un chatbot IA avec un RAG et un contexte personnalisé pour fournir des réponses pertinentes et engageantes.",
         role: "Développeur Fullstack & UI/UX Designer",
         stack: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "React"],
         images: [
             "/images/portfolio-1.png",
             "/images/portfolio-2.png",
-            "/images/portfolio-3.png"
+            "/images/portfolio-3.png",
+            "/images/portfolio-4.png",
+            "/images/portfolio-5.png",
+            "/images/portfolio-6.png"
         ],
         github: "https://github.com/Walson-A/portfolio",
-        link: "https://walson.dev",
+        link: "https://portfoliodeploy-iota.vercel.app/",
         contributors: [
             { name: "Walson René", github: "https://github.com/Walson-A" }
         ],
         date: "2025",
-        duration: "En continu",
-        status: "En cours",
+        duration: "1 mois",
+        status: "Terminé",
         featured: true,
         technicalDetails: "L'architecture est basée sur Next.js App Router pour tirer parti du rendu serveur (RSC) et optimiser le First Contentful Paint. L'utilisation intensive de Framer Motion permet des transitions fluides entre les pages et des micro-interactions engageantes sans compromettre les performances (Core Web Vitals).",
     }

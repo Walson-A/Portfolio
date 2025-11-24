@@ -141,7 +141,7 @@ export function AtlasChat() {
                                         <Zap size={12} className="text-white/80 absolute -top-1 -right-1" />
                                     </motion.div>
                                 </div>
-                                <span className="font-bold text-[#0D0D0D] text-sm tracking-wide">Atlas</span>
+                                <span className="font-bold text-[#0D0D0D] text-sm tracking-wide">AtlasBot</span>
                             </div>
 
                             {/* Pulse indicator */}
@@ -347,7 +347,7 @@ export function AtlasChat() {
                                 </form>
 
                                 <p className="text-[10px] text-center text-gray-600 mt-3 font-medium">
-                                    AtlasBot peut faire des erreurs. Vérifiez les informations importantes.
+                                    AtlasBot peut faire des erreurs.
                                 </p>
                             </div>
                         </div>
