@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { MessageSquare, X, Send, Bot, User, Loader2, Sparkles, Zap } from "lucide-react"
+import { X, Send, Bot, User, Loader2, Sparkles, Zap } from "lucide-react"
 import { cn } from "@/lib/utils"
 import ReactMarkdown from "react-markdown"
 
@@ -252,11 +252,17 @@ export function AtlasChat() {
                                             {msg.role === "assistant" ? (
                                                 <ReactMarkdown
                                                     components={{
+                                                        // eslint-disable-next-line @typescript-eslint/no-unused-vars
                                                         strong: ({ node, ...props }) => <span className="font-bold text-[#4FD1C5]" {...props} />,
+                                                        // eslint-disable-next-line @typescript-eslint/no-unused-vars
                                                         a: ({ node, ...props }) => <a className="text-[#4FD1C5] underline hover:text-white" target="_blank" rel="noopener noreferrer" {...props} />,
+                                                        // eslint-disable-next-line @typescript-eslint/no-unused-vars
                                                         ul: ({ node, ...props }) => <ul className="list-disc pl-4 space-y-1 mt-2" {...props} />,
+                                                        // eslint-disable-next-line @typescript-eslint/no-unused-vars
                                                         ol: ({ node, ...props }) => <ol className="list-decimal pl-4 space-y-1 mt-2" {...props} />,
+                                                        // eslint-disable-next-line @typescript-eslint/no-unused-vars
                                                         li: ({ node, ...props }) => <li className="marker:text-[#4FD1C5]" {...props} />,
+                                                        // eslint-disable-next-line @typescript-eslint/no-unused-vars
                                                         p: ({ node, ...props }) => <p className="mb-2 last:mb-0" {...props} />
                                                     }}
                                                 >

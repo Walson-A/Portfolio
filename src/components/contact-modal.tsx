@@ -3,7 +3,6 @@
 import { motion, AnimatePresence } from "framer-motion"
 import { X, Mail, Phone, MapPin, Send, Linkedin, Github, Loader2 } from "lucide-react"
 import { useEffect, useRef, useState } from "react"
-import { cn } from "@/lib/utils"
 
 interface ContactModalProps {
     isOpen: boolean
@@ -115,7 +114,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                                 <div className="relative z-10">
                                     <h2 className="text-2xl font-bold text-white mb-2">Discutons ensemble</h2>
                                     <p className="text-gray-400 text-sm leading-relaxed mb-8">
-                                        À la recherche d'un stagiaire / alternant ou simplement curieux de mon profil ? Je serais ravi d'échanger avec vous.
+                                        À la recherche d&apos;un stagiaire / alternant ou simplement curieux de mon profil ? Je serais ravi d&apos;échanger avec vous.
                                     </p>
 
                                     <div className="space-y-6">
@@ -248,6 +247,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     )
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function SocialLink({ href, icon: Icon, label }: { href: string; icon: any; label: string }) {
     return (
         <a

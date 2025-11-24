@@ -24,7 +24,7 @@ export default function ProjectsPage() {
                         className="inline-flex items-center gap-2 text-gray-400 hover:text-[#4FD1C5] transition-colors mb-8"
                     >
                         <ArrowLeft className="w-4 h-4" />
-                        Retour à l'accueil
+                        Retour à l&apos;accueil
                     </Link>
 
                     <motion.h1

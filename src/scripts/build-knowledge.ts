@@ -1,12 +1,13 @@
 
+
 import fs from 'fs';
 import path from 'path';
 import { projects } from '../data/projects';
 import { timelineEvents } from '../data/timeline';
 
 // Import Xenova Transformers dynamically to avoid build issues if not available immediately
-// We will use standard require for the script
-const { pipeline } = require('@xenova/transformers');
+// We use dynamic import for the script
+const { pipeline } = await import('@xenova/transformers');
 
 const KNOWLEDGE_DIR = path.join(process.cwd(), 'src', 'data', 'knowledge');
 const VECTOR_STORE_PATH = path.join(process.cwd(), 'src', 'data', 'vector-store.json');
@@ -19,6 +20,7 @@ if (!fs.existsSync(KNOWLEDGE_DIR)) {
 interface VectorItem {
     id: string;
     content: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     metadata: any;
     embedding: number[];
 }
@@ -168,3 +170,4 @@ ${timelineEvents.map(e => `- **${e.year}**: ${e.label} (${e.type}) - ${e.descrip
 }
 
 generateVectorStore().catch(console.error);
+

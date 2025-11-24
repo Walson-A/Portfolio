@@ -1,8 +1,9 @@
 "use client"
 
 import { motion, AnimatePresence } from "framer-motion"
-import { X, Download, MapPin, GraduationCap, Calendar, Github, Linkedin, Mail, ExternalLink, Phone, Code2, Brain, Wrench } from "lucide-react"
+import { X, Download, MapPin, GraduationCap, Github, Linkedin, Mail, ExternalLink, Phone, Code2, Brain, Wrench } from "lucide-react"
 import { useEffect, useRef } from "react"
+import Image from "next/image"
 import { cn } from "@/lib/utils"
 
 interface AboutModalProps {
@@ -83,10 +84,11 @@ export function AboutModal({ isOpen, onClose }: AboutModalProps) {
                                 {/* Photo */}
                                 <div className="relative mb-6">
                                     <div className="w-40 h-40 rounded-full bg-gradient-to-br from-[#1F1F1F] to-[#2D2D2D] border-2 border-[#4FD1C5]/20 shadow-[0_0_20px_rgba(79,209,197,0.1)] overflow-hidden relative group">
-                                        <img
+                                        <Image
                                             src="/images/photo.jpg"
                                             alt="Photo de profil"
-                                            className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-110 transform"
+                                            fill
+                                            className="object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-110 transform"
                                         />
                                     </div>
                                 </div>
@@ -161,7 +163,7 @@ export function AboutModal({ isOpen, onClose }: AboutModalProps) {
 
                                     {/* Education */}
                                     <div>
-                                        <h3 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-2">Niveau d'étude</h3>
+                                        <h3 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-2">Niveau d&apos;étude</h3>
                                         <div className="flex items-center gap-2 text-gray-200">
                                             <GraduationCap size={20} className="text-[#4FD1C5]" />
                                             <span className="font-medium text-lg">EPITA — Prépa intégrée (Bac+2)</span>
@@ -224,6 +226,7 @@ export function AboutModal({ isOpen, onClose }: AboutModalProps) {
     )
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function Badge({ icon: Icon, label }: { icon: any; label: string }) {
     return (
         <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white/5 border border-white/10 text-xs font-medium text-gray-300">
@@ -233,6 +236,7 @@ function Badge({ icon: Icon, label }: { icon: any; label: string }) {
     )
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function SocialLink({ href, icon: Icon, label }: { href: string; icon: any; label: string }) {
     return (
         <a

@@ -9,7 +9,16 @@ import { pipeline } from '@xenova/transformers';
 
 const VECTOR_STORE_PATH = path.join(process.cwd(), 'src', 'data', 'vector-store.json');
 
+// Define types for vector store items
+interface VectorItem {
+    id: string;
+    content: string;
+    embedding: number[];
+    score?: number;
+}
+
 // Singleton for the extractor to avoid reloading model on every request
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 let extractor: any = null;
 
 async function getExtractor() {
@@ -41,7 +50,7 @@ export async function POST(req: Request) {
                 timestamp: new Date()
             });
         }
-        const vectorStore = JSON.parse(fs.readFileSync(VECTOR_STORE_PATH, 'utf-8'));
+        const vectorStore: VectorItem[] = JSON.parse(fs.readFileSync(VECTOR_STORE_PATH, 'utf-8'));
 
         // 2. Embed User Query
         const embedder = await getExtractor();
@@ -50,28 +59,28 @@ export async function POST(req: Request) {
 
         // 3. Search for Context
         // Always include the Global Summary (Source of Truth)
-        const globalSummaryItem = vectorStore.find((item: any) => item.id === 'global-summary');
+        const globalSummaryItem = vectorStore.find((item) => item.id === 'global-summary');
         const globalSummaryContent = globalSummaryItem ? globalSummaryItem.content : "";
 
         const scoredItems = vectorStore
-            .filter((item: any) => item.id !== 'global-summary') // Exclude summary from search to avoid dupes
-            .map((item: any) => ({
+            .filter((item) => item.id !== 'global-summary') // Exclude summary from search to avoid dupes
+            .map((item) => ({
                 ...item,
                 score: cosineSimilarity(queryEmbedding, item.embedding)
             }));
 
         // Sort by score desc and take top 3 relevant chunks
         const topContexts = scoredItems
-            .sort((a: any, b: any) => b.score - a.score)
+            .sort((a, b) => (b.score || 0) - (a.score || 0))
             .slice(0, 3)
-            .filter((item: any) => item.score > 0.25); // Minimum relevance threshold
+            .filter((item) => (item.score || 0) > 0.25); // Minimum relevance threshold
 
         // Combine Summary + Retrieved Context
         const contextText = [
             "--- RÉSUMÉ GLOBAL (SOURCE DE VÉRITÉ) ---",
             globalSummaryContent,
             "--- DÉTAILS PERTINENTS ---",
-            ...topContexts.map((c: any) => c.content)
+            ...topContexts.map((c) => c.content)
         ].join('\n\n');
 
         // 4. Call OpenRouter
@@ -104,6 +113,7 @@ HISTORIQUE DE CONVERSATION :
 
         const openRouterMessages = [
             { role: 'system', content: systemPrompt },
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             ...messages.map((m: any) => ({ role: m.role, content: m.content }))
         ];
 

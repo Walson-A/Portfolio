@@ -2,8 +2,9 @@
 
 import { useState, useEffect, useCallback } from "react"
 import useEmblaCarousel from "embla-carousel-react"
-import { ChevronLeft, ChevronRight, Play } from "lucide-react"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 import { cn } from "@/lib/utils"
+import Image from "next/image"
 
 interface ProjectCarouselProps {
     images: string[]
@@ -64,11 +65,15 @@ export function ProjectCarousel({ images, video }: ProjectCarouselProps) {
                                         />
                                     </div>
                                 ) : (
-                                    <img
-                                        src={slide}
-                                        alt={`Slide ${index + 1}`}
-                                        className="w-full h-full object-cover"
-                                    />
+                                    <div className="relative w-full h-full">
+                                        <Image
+                                            src={slide}
+                                            alt={`Slide ${index + 1}`}
+                                            fill
+                                            className="object-cover"
+                                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+                                        />
+                                    </div>
                                 )}
                             </div>
                         )

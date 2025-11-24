@@ -1,7 +1,6 @@
 "use client"
 
 import { Project } from "@/data/projects"
-import { motion } from "framer-motion"
 import { Calendar, Clock, Users, Code2, CheckCircle2, AlertCircle, PauseCircle } from "lucide-react"
 
 interface ProjectDetailsProps {
@@ -104,7 +103,7 @@ export function ProjectDetails({ project }: ProjectDetailsProps) {
                         <div className="space-y-3 pt-4 border-t border-white/10">
                             <div className="flex items-center gap-2 text-gray-400 text-sm uppercase tracking-wider font-bold">
                                 <Users size={16} />
-                                <span>Contributeurs</span>
+                                <span className="text-sm">Contributeurs</span>
                             </div>
                             <div className="space-y-2">
                                 {project.contributors.map((contributor, idx) => (

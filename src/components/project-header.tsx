@@ -4,6 +4,7 @@ import { motion } from "framer-motion"
 import { Github, Globe, ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import { Project } from "@/data/projects"
+import Image from "next/image"
 
 interface ProjectHeaderProps {
     project: Project
@@ -15,10 +16,12 @@ export function ProjectHeader({ project }: ProjectHeaderProps) {
             {/* Background Image with Blur */}
             <div className="absolute inset-0 z-0">
                 <div className="absolute inset-0 bg-gradient-to-b from-[#0D0D0D]/80 via-[#0D0D0D]/90 to-[#0D0D0D] z-10" />
-                <img
+                <Image
                     src={project.images[0]}
                     alt={project.title}
-                    className="w-full h-full object-cover blur-sm opacity-50 scale-105"
+                    fill
+                    className="object-cover blur-sm opacity-50 scale-105"
+                    priority
                 />
             </div>
 

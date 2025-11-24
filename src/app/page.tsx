@@ -85,7 +85,7 @@ export default function Home() {
             style={{ boxShadow: "0 0 20px rgba(79, 209, 197, 0.1)" }}
           >
             <span className="text-xl md:text-2xl font-bold text-[#4FD1C5] tracking-wide">
-              Étudiant ingénieur à l'EPITA
+              Étudiant ingénieur à l&apos;EPITA
             </span>
           </motion.div>
 
@@ -98,7 +98,7 @@ export default function Home() {
           >
             Passionné par le développement et la création numérique.
             <br className="hidden md:block" />
-            J'aime comprendre, concevoir et donner vie à des projets à travers le code.
+            J&apos;aime comprendre, concevoir et donner vie à des projets à travers le code.
           </motion.p>
 
           <motion.p
@@ -107,7 +107,7 @@ export default function Home() {
             transition={{ delay: 0.5, duration: 0.8 }}
             className="text-base md:text-lg text-gray-400 max-w-2xl mx-auto mb-10"
           >
-            Je cherche à renforcer mes compétences en développement au sein d'une entreprise,
+            Je cherche à renforcer mes compétences en développement au sein d&apos;une entreprise,
             afin de gagner en expérience concrète et de participer à des projets réels.
           </motion.p>
 
