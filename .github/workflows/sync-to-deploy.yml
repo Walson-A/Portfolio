@@ -1,0 +1,29 @@
+name: Sync to Deploy Repo
+
+on:
+  push:
+    branches:
+      - main  # Déclenche quand tu push sur main
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Récupère tout l'historique
+
+      - name: Push to deploy repo
+        env:
+          DEPLOY_REPO_TOKEN: ${{ secrets.DEPLOY_REPO_TOKEN }}
+        run: |
+          # Configure Git
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          
+          # Ajoute le repo de déploiement comme remote
+          git remote add deploy https://x-access-token:${DEPLOY_REPO_TOKEN}@github.com/Walson-A/portfolio-deploy.git
+          
+          # Push vers le repo de déploiement
+          git push deploy main --force
