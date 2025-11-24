@@ -1,7 +1,5 @@
 # ⚡ Walson's Portfolio
 
-![Portfolio Banner](/public/images/portfolio-hero.png)
-
 <div align="center">
 
 [![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
