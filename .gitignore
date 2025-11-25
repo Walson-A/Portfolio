@@ -42,8 +42,8 @@ next-env.d.ts
 
 # chatbot training logs & knowledge generation
 /chatbot_training_log*.txt
-/src/data/knowledge/
-/src/data/vector-store.json
+# /src/data/knowledge/
+# /src/data/vector-store.json
 
 # screenshots & recordings  
 *.webp

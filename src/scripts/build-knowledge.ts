@@ -7,7 +7,7 @@ import { timelineEvents } from '../data/timeline';
 
 // Import Xenova Transformers dynamically to avoid build issues if not available immediately
 // We use dynamic import for the script
-const { pipeline } = await import('@xenova/transformers');
+// Import moved inside generateVectorStore
 
 const KNOWLEDGE_DIR = path.join(process.cwd(), 'src', 'data', 'knowledge');
 const VECTOR_STORE_PATH = path.join(process.cwd(), 'src', 'data', 'vector-store.json');
@@ -27,6 +27,8 @@ interface VectorItem {
 
 async function generateVectorStore() {
     console.log('Initializing embedding model (all-MiniLM-L6-v2)...');
+    // Import Xenova Transformers dynamically
+    const { pipeline } = await import('@xenova/transformers');
     const extractor = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
 
     const vectorStore: VectorItem[] = [];
@@ -136,14 +138,19 @@ ${timelineEvents.map(event => `
     - (Pas de CDD ni CDI pour le moment).
 
 ## À Propos
-Walson est un étudiant ingénieur à l'EPITA, passionné par le développement web moderne et l'ingénierie logicielle. Il aime créer des expériences utilisateurs fluides et immersives. Il a une approche "Fullstack", capable de gérer aussi bien le frontend (design, animations) que le backend (API, bases de données, systèmes).
+Walson est un étudiant ingénieur à l'EPITA, passionné par le développement et la création numérique. Il conçoit des projets autour du développement logiciel, de l'IA et des outils du quotidien. Il aime comprendre, concevoir et donner vie à des projets à travers le code, transformer des idées en produits concrets, utiles et agréables à utiliser.
+
+Walson cherche à renforcer ses compétences en développement au sein d'une entreprise, afin de gagner en expérience concrète et de participer à des projets réels.
 
 ## Compétences Techniques (Tech Stack)
-- **Frontend**: React, Next.js 14 (App Router), TypeScript, Tailwind CSS, Framer Motion, Three.js (notions).
-- **Backend**: Node.js, Python (FastAPI/Flask), C (Système/Bas niveau).
-- **Mobile**: AUCUNE expérience en mobile (Pas de React Native).
+- **Langages**: Python, C, C#, TypeScript.
+- **Frontend**: React, Next.js (App Router), Tailwind CSS, Framer Motion.
+- **Backend**: Node.js, Python, C (Système/Bas niveau).
+- **Jeux**: Unity.
 - **Outils**: Git, Docker, Linux, Makefile.
 - **Design**: UI/UX, Glassmorphism, Responsive Design.
+- **Domaines**: Développement logiciel, IA, Création d'outils.
+- **Mobile**: AUCUNE expérience en mobile (Pas de React Native).
 
 ## Vue d'ensemble des Projets (${projects.length} projets principaux)
 ${projects.map(p => `- **${p.title}** (${p.date}): ${p.shortDescription}. [Stack: ${p.stack.join(', ')}]. Rôle: ${p.role}. Statut: ${p.status}.`).join('\n')}
