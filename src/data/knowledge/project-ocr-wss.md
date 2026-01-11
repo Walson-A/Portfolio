@@ -4,26 +4,30 @@
 Pipeline OCR complet pour résoudre des mots cachés depuis une image.
 
 ## Description Détaillée
-OCR WSS est un logiciel d'OCR capable de résoudre automatiquement des grilles de mots cachés à partir d'une simple photo. Développé entièrement en C sans bibliothèques de haut niveau (hormis SDL2), le projet implémente un pipeline complet : prétraitement d'image, détection de grille, segmentation des caractères, reconnaissance optique (OCR) via un réseau de neurones maison, et algorithme de résolution.
+OCR WSS est un logiciel capable de résoudre automatiquement des grilles de mots cachés à partir d'une simple photo. Développé en C, il intègre une interface graphique GTK+ 3 et un réseau de neurones (MLP) fait maison pour la reconnaissance optique.
 
-Ce projet a nécessité une maîtrise des algorithmes bas niveau de traitement d'image (projections, binarisation, détection de lignes).
+Le logiciel guide l'utilisateur à travers un pipeline de traitement complet : du prétraitement de l'image (niveaux de gris, réduction de bruit) à la résolution algorithmique, en passant par la segmentation précise de la grille via détection de blobs et projections d'histogrammes.
 
 ## Rôle
 Développeur C & Computer Vision
 
 ## Stack Technique
-C, SDL2, Neural Networks, Image Processing
+C, GTK+ 3, SDL2, Neural Networks, Image Processing
 
 ## Détails Techniques
-La contrainte de n'utiliser que la SDL2 a nécessité l'implémentation manuelle d'algorithmes complexes de vision par ordinateur. La détection de grille robuste face aux rotations et au bruit, ainsi que la création d'un réseau de neurones optimisé pour la reconnaissance de caractères, ont constitué les principaux défis techniques.
+L'implémentation repose sur un pipeline strict : 
+1. Prétraitement (Greyscale, Binarisation, RLSA). 
+2. Segmentation de la grille par détection de blobs et filtrage médian. 
+3. Extraction des lettres par profils de projection. 
+4. OCR via un MLP (48x48 input) entraîné from scratch. 
+5. Résolution par Backtracking.
 
 ## Statut
-Terminé (2024) - Durée: 10 mois
+Terminé (2024) - Durée: 4 mois
 
 ## Contributeurs
 - Walson Argan René (https://github.com/Walson-A)
 - Baptiste De Sousa ()
-- Sacha Radic ()
 
 ## GitHub
 https://github.com/Walson-A

@@ -5,9 +5,7 @@ import path from 'path';
 import { projects } from '../data/projects';
 import { timelineEvents } from '../data/timeline';
 
-// Import Xenova Transformers dynamically to avoid build issues if not available immediately
-// We use dynamic import for the script
-// Import moved inside generateVectorStore
+import { getEmbedding } from '../lib/embeddings';
 
 const KNOWLEDGE_DIR = path.join(process.cwd(), 'src', 'data', 'knowledge');
 const VECTOR_STORE_PATH = path.join(process.cwd(), 'src', 'data', 'vector-store.json');
@@ -26,18 +24,16 @@ interface VectorItem {
 }
 
 async function generateVectorStore() {
-    console.log('Initializing embedding model (all-MiniLM-L6-v2)...');
-    // Import Xenova Transformers dynamically
-    const { pipeline } = await import('@xenova/transformers');
-    const extractor = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
+    console.log('Using OpenRouter API (text-embedding-3-small) for embeddings...');
 
     const vectorStore: VectorItem[] = [];
 
     // Helper to embed text
     const embedText = async (text: string) => {
-        const output = await extractor(text, { pooling: 'mean', normalize: true });
-        return Array.from(output.data) as number[];
+        return await getEmbedding(text);
     };
+
+
 
     // 1. Generate Projects Knowledge & Embeddings
     console.log('Processing projects...');
@@ -150,7 +146,7 @@ Walson cherche à renforcer ses compétences en développement au sein d'une ent
 - **Outils**: Git, Docker, Linux, Makefile.
 - **Design**: UI/UX, Glassmorphism, Responsive Design.
 - **Domaines**: Développement logiciel, IA, Création d'outils.
-- **Mobile**: AUCUNE expérience en mobile (Pas de React Native).
+- **Mobile**: React Native.
 
 ## Vue d'ensemble des Projets (${projects.length} projets principaux)
 ${projects.map(p => `- **${p.title}** (${p.date}): ${p.shortDescription}. [Stack: ${p.stack.join(', ')}]. Rôle: ${p.role}. Statut: ${p.status}.`).join('\n')}

@@ -28,12 +28,13 @@ Walson cherche à renforcer ses compétences en développement au sein d'une ent
 - **Outils**: Git, Docker, Linux, Makefile.
 - **Design**: UI/UX, Glassmorphism, Responsive Design.
 - **Domaines**: Développement logiciel, IA, Création d'outils.
-- **Mobile**: AUCUNE expérience en mobile (Pas de React Native).
+- **Mobile**: React Native.
 
-## Vue d'ensemble des Projets (4 projets principaux)
+## Vue d'ensemble des Projets (5 projets principaux)
 - **Atlas** (2025-07): Assistant vocal IA local ultra-rapide mêlant ASR, LLM, TTS et domotique.. [Stack: Python, LLM, Function Tools, ASR, TTS]. Rôle: Architecte Système & Développeur Fullstack. Statut: En cours.
+- **Passer** (2025-11): Pont fluide entre iPhone et PC pour le partage de presse-papiers et de fichiers.. [Stack: Rust, Tauri, React, TypeScript, TailwindCSS]. Rôle: Créateur & Développeur Principal. Statut: En cours.
 - **StickHunt** (2023): Jeu multijoueur 3D type 'Prop Hunt' développé sous Unity.. [Stack: Unity, C#]. Rôle: Gameplay Developer & Sound Designer. Statut: Terminé.
-- **OCR Word Search Solver** (2024): Pipeline OCR complet pour résoudre des mots cachés depuis une image.. [Stack: C, SDL2, Neural Networks, Image Processing]. Rôle: Développeur C & Computer Vision. Statut: Terminé.
+- **OCR Word Search Solver** (2024): Pipeline OCR complet pour résoudre des mots cachés depuis une image.. [Stack: C, GTK+ 3, SDL2, Neural Networks, Image Processing]. Rôle: Développeur C & Computer Vision. Statut: Terminé.
 - **Portfolio Personnel** (2025): Vitrine interactive moderne présentant mon parcours et mes projets.. [Stack: Next.js, TypeScript, Tailwind CSS, Framer Motion, React]. Rôle: Développeur Fullstack & UI/UX Designer. Statut: Terminé.
 
 ## Parcours (Timeline)
@@ -42,3 +43,4 @@ Walson cherche à renforcer ses compétences en développement au sein d'une ent
 - **2025**: Semestre d’échange (school) - Immersion internationale dans la prestigieuse université de TEC de Monterrey.
 - **2025**: Atlas (project) - Assistant intelligent local et modulaire intégrant ASR, LLM et TTS.
 - **2025**: Portfolio (project) - Site personnel moderne et responsive développé avec Next.js, TypeScript et Tailwind.
+- **2025**: Passer (project) - Utilitaire de synchronisation presse-papiers et fichiers entre Windows et iOS.

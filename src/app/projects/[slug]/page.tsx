@@ -7,9 +7,9 @@ import { notFound } from "next/navigation"
 import Link from "next/link"
 
 interface ProjectPageProps {
-    params: {
+    params: Promise<{
         slug: string
-    }
+    }>
 }
 
 export function generateStaticParams() {
@@ -18,8 +18,9 @@ export function generateStaticParams() {
     }))
 }
 
-export default function ProjectPage({ params }: ProjectPageProps) {
-    const projectIndex = projects.findIndex((p) => p.slug === params.slug)
+export default async function ProjectPage({ params }: ProjectPageProps) {
+    const { slug } = await params
+    const projectIndex = projects.findIndex((p) => p.slug === slug)
     const project = projects[projectIndex]
 
     if (!project) {

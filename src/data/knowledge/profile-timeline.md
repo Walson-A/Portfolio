@@ -29,3 +29,9 @@
 - **Lieu**: Non spécifié
 - **Description**: Site personnel moderne et responsive développé avec Next.js, TypeScript et Tailwind.
 - **Tags**: Next.js, TypeScript, Tailwind
+
+
+## 2025 - Passer (project)
+- **Lieu**: Non spécifié
+- **Description**: Utilitaire de synchronisation presse-papiers et fichiers entre Windows et iOS.
+- **Tags**: Rust, Tauri, React, iOS Shortcuts

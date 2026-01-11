@@ -62,5 +62,14 @@ export const timelineEvents: TimelineEvent[] = [
         description: "Site personnel moderne et responsive développé avec Next.js, TypeScript et Tailwind.",
         slug: "portfolio",
         tags: ["Next.js", "TypeScript", "Tailwind"],
-    }
+    },
+    {
+        year: 2025,
+        type: "project",
+        label: "Passer",
+        subtitle: "Pont PC / iOS",
+        description: "Utilitaire de synchronisation presse-papiers et fichiers entre Windows et iOS.",
+        slug: "passer",
+        tags: ["Rust", "Tauri", "React", "iOS Shortcuts"],
+    },
 ]

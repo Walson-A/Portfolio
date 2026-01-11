@@ -72,7 +72,8 @@ export function AtlasChat() {
                 });
 
                 if (!response.ok) {
-                    throw new Error(`API Error: ${response.status}`);
+                    const errorData = await response.json().catch(() => ({}));
+                    throw new Error(errorData.content || `API Error: ${response.status}`);
                 }
 
                 const data = await response.json();
@@ -89,16 +90,25 @@ export function AtlasChat() {
                 }
 
                 setMessages(prev => [...prev, assistantMessage])
-            } catch (error) {
+            } catch (error: any) {
                 console.error("Error sending message:", error)
+
+                let errorMessageText = "Désolé, j'ai rencontré une erreur de connexion. Veuillez réessayer.";
+
+                // If it's a known error from the server (like 429), the error object or response might carry detail
+                if (error.message && error.message.includes("429")) {
+                    errorMessageText = "Vous envoyez des messages trop rapidement. Pausez une petite minute !";
+                }
+
                 const errorMessage: Message = {
                     id: (Date.now() + 1).toString(),
                     role: "assistant",
-                    content: "Désolé, j'ai rencontré une erreur de connexion. Veuillez réessayer.",
+                    content: errorMessageText,
                     timestamp: new Date()
                 }
                 setMessages(prev => [...prev, errorMessage])
             } finally {
+
                 setIsTyping(false)
             }
         }, 1000)

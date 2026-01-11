@@ -5,6 +5,7 @@ import { Project } from "@/data/projects"
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
 import { motion } from "framer-motion"
+import Image from "next/image"
 
 interface ProjectCardProps {
     project: Project
@@ -16,9 +17,28 @@ export function ProjectCard({ project }: ProjectCardProps) {
             <motion.div
                 whileHover={{ y: -8 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
-                className="h-full"
+                className="h-full will-change-transform"
             >
                 <Card className="h-full bg-gradient-to-br from-[#111111] to-[#0D0D0D] border border-white/10 text-[#E8E8E8] transition-all duration-300 hover:border-[#4FD1C5]/50 hover:shadow-[0_0_30px_rgba(79,209,197,0.2)] cursor-pointer overflow-hidden flex flex-col relative">
+                    {/* Project Image Preview */}
+                    <div className="relative h-48 w-full overflow-hidden border-b border-white/5 bg-[#0D0D0D]">
+                        {/* Blurred background to fill space */}
+                        <Image
+                            src={project.images[0]}
+                            alt=""
+                            fill
+                            className="object-cover blur-xl opacity-20 scale-110"
+                        />
+                        {/* Main Thumbnail */}
+                        <Image
+                            src={project.images[0]}
+                            alt={project.title}
+                            fill
+                            className="object-contain p-4 group-hover:scale-110 transition-transform duration-500"
+                            sizes="(max-width: 768px) 100vw, 33vw"
+                        />
+                    </div>
+
                     {/* Subtle glow effect */}
                     <div className="absolute inset-0 bg-gradient-to-br from-[#4FD1C5]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 

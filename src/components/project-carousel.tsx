@@ -65,14 +65,26 @@ export function ProjectCarousel({ images, video }: ProjectCarouselProps) {
                                         />
                                     </div>
                                 ) : (
-                                    <div className="relative w-full h-full">
+                                    <div className="relative w-full h-full overflow-hidden flex items-center justify-center bg-[#0d0d0d]">
+                                        {/* Blurred Background */}
                                         <Image
                                             src={slide}
-                                            alt={`Slide ${index + 1}`}
+                                            alt=""
                                             fill
-                                            className="object-cover"
-                                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+                                            className="object-cover blur-2xl opacity-30 scale-110"
+                                            priority={index === 0}
                                         />
+                                        {/* Main Image */}
+                                        <div className="relative w-full h-full">
+                                            <Image
+                                                src={slide}
+                                                alt={`Slide ${index + 1}`}
+                                                fill
+                                                className="object-contain"
+                                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+                                                priority={index === 0}
+                                            />
+                                        </div>
                                     </div>
                                 )}
                             </div>

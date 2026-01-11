@@ -57,7 +57,7 @@ async function runTests() {
         console.log(`\n[${index + 1}/${questions.length}] Q: ${question}`);
 
         try {
-            const response = await fetch('http://localhost:3001/api/atlas-chat', {
+            const response = await fetch('http://localhost:3000/api/atlas-chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

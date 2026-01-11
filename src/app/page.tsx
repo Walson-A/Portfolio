@@ -6,10 +6,13 @@ import { useState } from "react"
 import { projects } from "@/data/projects"
 import { ProjectCard } from "@/components/project-card"
 import Link from "next/link"
-import { Navbar } from "@/components/navbar"
-import { Timeline } from "@/components/timeline"
-import { ContactModal } from "@/components/contact-modal"
-import { TechMarquee } from "@/components/tech-marquee"
+import dynamic from "next/dynamic"
+
+// Dynamic imports for heavy content below the fold
+const Navbar = dynamic(() => import("@/components/navbar").then(m => m.Navbar), { ssr: true })
+const Timeline = dynamic(() => import("@/components/timeline").then(m => m.Timeline), { ssr: false })
+const ContactModal = dynamic(() => import("@/components/contact-modal").then(m => m.ContactModal), { ssr: false })
+const TechMarquee = dynamic(() => import("@/components/tech-marquee").then(m => m.TechMarquee), { ssr: false })
 
 export default function Home() {
   // Force rebuild - Layout Fix
@@ -62,7 +65,7 @@ export default function Home() {
         />
 
         {/* Main Content Container */}
-        <div className="flex-1 flex flex-col justify-center items-center text-center z-10 w-full max-w-5xl mx-auto pt-20 pb-10">
+        <div className="flex-1 flex flex-col justify-center items-center text-center z-10 w-full max-w-5xl mx-auto pt-32 pb-10">
           {/* Name with Cinematic Styling */}
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -156,7 +159,7 @@ export default function Home() {
             }}
             className="hidden md:flex flex-col items-center gap-2 cursor-pointer group"
           >
-            <span className="text-xs text-gray-500 uppercase tracking-widest group-hover:text-[#4FD1C5] transition-colors">Scroll</span>
+            <span className="text-xs text-gray-500 uppercase tracking-widest group-hover:text-[#4FD1C5] transition-colors">Découvrir</span>
             <svg
               className="w-6 h-6 text-[#4FD1C5] group-hover:scale-110 transition-transform"
               fill="none"
@@ -198,7 +201,7 @@ export default function Home() {
         >
           Projets
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.slice(0, 3).map((project) => (
             <ProjectCard key={project.slug} project={project} />
           ))}

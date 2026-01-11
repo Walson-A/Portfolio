@@ -31,30 +31,35 @@ export function Navbar() {
             return
         }
 
+        let ticking = false
         const handleScroll = () => {
-            const sections = navItems.map(item => {
-                if (item.isAction) return null
-                return document.querySelector(item.href)
-            })
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const sections = navItems
+                        .filter(item => !item.isAction)
+                        .map(item => document.querySelector(item.href))
 
-            // Trigger point: 40% down the viewport
-            const scrollPosition = window.scrollY + window.innerHeight * 0.4
+                    const scrollPosition = window.scrollY + window.innerHeight * 0.4
 
-            for (const section of sections) {
-                if (section instanceof HTMLElement) {
-                    const top = section.offsetTop
-                    const height = section.offsetHeight
+                    for (const section of sections) {
+                        if (section instanceof HTMLElement) {
+                            const top = section.offsetTop
+                            const height = section.offsetHeight
 
-                    if (scrollPosition >= top && scrollPosition < top + height) {
-                        const id = `#${section.id}`
-                        setActiveSection(id)
-                        break
+                            if (scrollPosition >= top && scrollPosition < top + height) {
+                                const id = `#${section.id}`
+                                setActiveSection(id)
+                                break
+                            }
+                        }
                     }
-                }
+                    ticking = false
+                })
+                ticking = true
             }
         }
 
-        window.addEventListener("scroll", handleScroll)
+        window.addEventListener("scroll", handleScroll, { passive: true })
         handleScroll()
         return () => window.removeEventListener("scroll", handleScroll)
     }, [isHome])
@@ -135,7 +140,7 @@ export function Navbar() {
                                     onMouseEnter={() => setHoveredIndex(index)}
                                     onMouseLeave={() => setHoveredIndex(null)}
                                     className={cn(
-                                        "relative flex items-center gap-2 md:gap-3 px-3 py-2 md:px-6 md:py-3 rounded-full transition-colors duration-300",
+                                        "relative flex items-center gap-2 md:gap-3 px-3 py-2 md:px-6 md:py-3 rounded-full transition-colors duration-300 will-change-transform",
                                         isActive ? "text-[#0D0D0D]" : "text-gray-400 hover:text-white"
                                     )}
                                 >

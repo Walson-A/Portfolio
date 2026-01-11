@@ -1,9 +1,42 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import { z } from 'zod';
+import { rateLimit } from '@/lib/rate-limit';
+
+const contactSchema = z.object({
+    name: z.string().min(2, "Le nom doit faire au moins 2 caractères").max(50),
+    email: z.string().email("Format d'email invalide"),
+    subject: z.string().min(2, "Le sujet doit faire au moins 2 caractères").max(100),
+    message: z.string().min(10, "Le message doit faire au moins 10 caractères").max(2000),
+    // Honeypot field - should be empty!
+    _honeypot: z.string().max(0, { message: "Bot detected" }).optional(),
+});
 
 export async function POST(req: Request) {
     try {
-        const { name, email, subject, message } = await req.json();
+        // 1. Rate Limiting based on IP
+        const ip = req.headers.get('x-forwarded-for') || 'anonymous';
+        const limiter = rateLimit(ip, 3, 10 * 60 * 1000, 'contact'); // 3 messages / 10 min
+
+        if (!limiter.success) {
+            return NextResponse.json(
+                { error: "Trop de messages envoyés. Veuillez patienter 10 minutes." },
+                { status: 429 }
+            );
+        }
+
+        const body = await req.json();
+
+        // 2. Validation with Zod
+        const result = contactSchema.safeParse(body);
+        if (!result.success) {
+            return NextResponse.json(
+                { error: result.error.issues[0].message },
+                { status: 400 }
+            );
+        }
+
+        const { name, email, subject, message } = result.data;
 
         if (!process.env.RESEND_API_KEY) {
             console.error("Missing RESEND_API_KEY in .env.local");
@@ -16,7 +49,7 @@ export async function POST(req: Request) {
         const resend = new Resend(process.env.RESEND_API_KEY);
 
         const { data, error } = await resend.emails.send({
-            from: 'Portfolio Contact <onboarding@resend.dev>', // Vous pourrez personnaliser avec votre domaine
+            from: 'Portfolio Contact <onboarding@resend.dev>',
             to: ['walson.a.rene@gmail.com'],
             replyTo: email,
             subject: `[Portfolio] ${subject} - from ${name}`,
@@ -62,18 +95,13 @@ export async function POST(req: Request) {
 
         if (error) {
             console.error('Resend error:', error);
-            return NextResponse.json(
-                { error: "Failed to send email" },
-                { status: 500 }
-            );
+            return NextResponse.json({ error: "Failed to send email" }, { status: 500 });
         }
 
         return NextResponse.json({ success: true, id: data?.id });
+
     } catch (error) {
         console.error('Error sending email:', error);
-        return NextResponse.json(
-            { error: "Failed to send email" },
-            { status: 500 }
-        );
+        return NextResponse.json({ error: "Failed to send email" }, { status: 500 });
     }
 }

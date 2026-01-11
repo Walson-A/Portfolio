@@ -282,7 +282,9 @@ function EventItem({ event, index, isActiveEvent, onActivate, onDeactivate }: {
                                 ...(typeof window !== 'undefined' && window.innerWidth >= 768 && rect ? {
                                     position: 'absolute',
                                     top: rect.top + window.scrollY + rect.height / 2 - 50, // Center vertically approx
-                                    left: isLeft ? rect.left - 430 : rect.right + 20,
+                                    left: isLeft
+                                        ? Math.max(20, rect.left - 430)
+                                        : Math.min(rect.right + 20, window.innerWidth - 430 - 20),
                                     transform: 'translateY(-50%)'
                                 } : {
                                     // Mobile styles (fallback if no rect or small screen)
@@ -420,16 +422,29 @@ function ImageSlideshow({ images }: { images: string[] }) {
     return (
         <div className="relative h-40 overflow-hidden bg-black/50 border-b border-[#1F1F1F]">
             <AnimatePresence mode="wait">
-                <motion.img
-                    key={currentIndex}
-                    src={images[currentIndex]}
-                    alt=""
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.5 }}
-                    className="w-full h-full object-cover"
-                />
+                <div key={currentIndex} className="relative w-full h-full">
+                    {/* Blurred background to fill space */}
+                    <motion.img
+                        key={`bg-${currentIndex}`}
+                        src={images[currentIndex]}
+                        alt=""
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 0.3 }}
+                        exit={{ opacity: 0 }}
+                        className="absolute inset-0 w-full h-full object-cover blur-lg scale-110"
+                    />
+                    {/* Main image */}
+                    <motion.img
+                        key={`img-${currentIndex}`}
+                        src={images[currentIndex]}
+                        alt=""
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 1.05 }}
+                        transition={{ duration: 0.4 }}
+                        className="relative w-full h-full object-contain"
+                    />
+                </div>
             </AnimatePresence>
         </div>
     )

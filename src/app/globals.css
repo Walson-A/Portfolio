@@ -131,3 +131,14 @@ body {
   overscroll-behavior-y: none;
   /* Prevents "bounce" effect revealing white background on some browsers */
 }
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}

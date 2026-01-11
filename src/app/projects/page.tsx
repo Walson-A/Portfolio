@@ -1,9 +1,11 @@
 "use client"
 
 import { useState } from "react"
-import { Navbar } from "@/components/navbar"
+import dynamic from "next/dynamic"
 import { ProjectCard } from "@/components/project-card"
 import { ProjectFilters } from "@/components/project-filters"
+
+const Navbar = dynamic(() => import("@/components/navbar").then(m => m.Navbar), { ssr: true })
 import { projects as allProjects } from "@/data/projects"
 import { motion } from "framer-motion"
 import Link from "next/link"

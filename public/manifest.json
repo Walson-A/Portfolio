@@ -1,0 +1,16 @@
+{
+    "name": "Walson Argan RENE | Portfolio",
+    "short_name": "Walson Portfolio",
+    "description": "Portfolio de Walson Argan RENE, étudiant ingénieur à l'EPITA",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0D0D0D",
+    "theme_color": "#4FD1C5",
+    "icons": [
+        {
+            "src": "/favicon.ico",
+            "sizes": "any",
+            "type": "image/x-icon"
+        }
+    ]
+}

@@ -13,6 +13,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     const modalRef = useRef<HTMLDivElement>(null)
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [isSent, setIsSent] = useState(false)
+    const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
     // Close on Escape key
     useEffect(() => {
@@ -41,11 +42,13 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
         setIsSubmitting(true)
 
         try {
+            setErrorMessage(null)
             const formData = {
                 name: (document.getElementById('name') as HTMLInputElement).value,
                 email: (document.getElementById('email') as HTMLInputElement).value,
                 subject: (document.getElementById('subject') as HTMLInputElement).value,
                 message: (document.getElementById('message') as HTMLTextAreaElement).value,
+                _honeypot: (document.getElementById('_honeypot') as HTMLInputElement).value,
             }
 
             const response = await fetch('/api/contact', {
@@ -54,16 +57,20 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 body: JSON.stringify(formData),
             })
 
-            if (!response.ok) throw new Error('Failed to send message')
+            const data = await response.json()
+
+            if (!response.ok) {
+                throw new Error(data.error || 'Failed to send message')
+            }
 
             setIsSent(true)
             setTimeout(() => {
                 setIsSent(false)
                 onClose()
             }, 3000)
-        } catch (error) {
+        } catch (error: any) {
             console.error('Error sending message:', error)
-            alert("Une erreur est survenue lors de l'envoi du message. Veuillez réessayer.")
+            setErrorMessage(error.message || "Une erreur est survenue lors de l'envoi du message.")
         } finally {
             setIsSubmitting(false)
         }
@@ -230,6 +237,25 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                                                     placeholder="Votre message..."
                                                 />
                                             </div>
+
+                                            {/* Honeypot field - Bot protection */}
+                                            <input
+                                                type="text"
+                                                id="_honeypot"
+                                                tabIndex={-1}
+                                                autoComplete="off"
+                                                className="absolute opacity-0 pointer-events-none -z-50 h-0 w-0"
+                                            />
+
+                                            {errorMessage && (
+                                                <motion.p
+                                                    initial={{ opacity: 0, y: -5 }}
+                                                    animate={{ opacity: 1, y: 0 }}
+                                                    className="text-red-400 text-xs font-medium bg-red-400/10 p-3 rounded-lg border border-red-400/20"
+                                                >
+                                                    {errorMessage}
+                                                </motion.p>
+                                            )}
 
                                             <button
                                                 type="submit"
