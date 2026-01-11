@@ -16,11 +16,9 @@ interface VectorItem {
 }
 
 // Persist instances across hot reloads in development using globalThis
-/* eslint-disable no-var */
 declare global {
     var __vectorStore: VectorItem[] | null;
 }
-/* eslint-enable no-var */
 
 function getVectorStore(): VectorItem[] {
     if (!globalThis.__vectorStore) {

@@ -68,9 +68,10 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 setIsSent(false)
                 onClose()
             }, 3000)
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error('Error sending message:', error)
-            setErrorMessage(error.message || "Une erreur est survenue lors de l'envoi du message.")
+            const msg = error instanceof Error ? error.message : "Une erreur est survenue lors de l'envoi du message.";
+            setErrorMessage(msg)
         } finally {
             setIsSubmitting(false)
         }

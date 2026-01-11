@@ -90,13 +90,15 @@ export function AtlasChat() {
                 }
 
                 setMessages(prev => [...prev, assistantMessage])
-            } catch (error: any) {
+            } catch (error: unknown) {
                 console.error("Error sending message:", error)
 
                 let errorMessageText = "Désolé, j'ai rencontré une erreur de connexion. Veuillez réessayer.";
 
+                const err = error as { message?: string };
+
                 // If it's a known error from the server (like 429), the error object or response might carry detail
-                if (error.message && error.message.includes("429")) {
+                if (err.message && err.message.includes("429")) {
                     errorMessageText = "Vous envoyez des messages trop rapidement. Pausez une petite minute !";
                 }
 
